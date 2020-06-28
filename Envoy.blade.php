@@ -1,12 +1,12 @@
-@servers(['web' => ['piratafly']])
+@servers(['prod' => ['piratafly']])
 
 @setup
     $app      = '/var/www/piratafly/api/live';
     $releases = '/var/www/piratafly/releases/v2.0/api';
-    $release  = $releases . '/' . date('YmdHi');
+    $release  = $releases.'/'.date('YmdHi');
 @endsetup
 
-@story('deploy', ['on' => 'web'])
+@story('deploy', ['on' => 'prod'])
     clone_repo
     run_composer
     update_symlinks
@@ -17,7 +17,7 @@
 
 @task('clone_repo')
     GIT_SSH_COMMAND='ssh -i ~/.ssh/id_rsa.piratafly-back -o IdentitiesOnly=yes' git clone git@github.com:carlosgmoran/piratafly-back.git {{ $release }}
-    rm -r {{ $release }}/.git {{ $release }}/storage;
+    rm -r {{ $release }}/.git* {{ $release }}/storage {{ $release }}/Envoy.blade.php;
 @endtask
 
 @task('run_composer')
