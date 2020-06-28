@@ -1,9 +1,9 @@
 @servers(['web' => ['piratafly']])
 
 @setup
-    $app      = '/var/www/piratafly/api';
-    $releases = '/var/www/piratafly/releases/api';
-    $release  = $releases . '/' . date('YmdHis');
+    $app      = '/var/www/piratafly/api/live';
+    $releases = '/var/www/piratafly/releases/v2.0/api';
+    $release  = $releases . '/' . date('YmdHi');
 @endsetup
 
 @story('deploy', ['on' => 'web'])
@@ -16,7 +16,7 @@
 @endstory
 
 @task('clone_repo')
-    git clone git@github.com:carlosgmoran/piratafly-back.git {{ $release }};
+    GIT_SSH_COMMAND='ssh -i ~/.ssh/id_rsa.piratafly-back -o IdentitiesOnly=yes' git clone git@github.com:carlosgmoran/piratafly-back.git {{ $release }}
     rm -r {{ $release }}/.git {{ $release }}/storage;
 @endtask
 
@@ -29,8 +29,8 @@
 @task('update_symlinks')
     echo "Symlinking storage, .env, and app...";
     cd {{ $release }};
-    ln -nfs /var/www/piratafly/storage {{ $release }}/storage;
-    ln -nfs /var/www/piratafly/.env {{ $release }}/.env;
+    ln -nfs /var/www/piratafly/api/persist/storage {{ $release }}/storage;
+    ln -nfs /var/www/piratafly/api/persist/.env {{ $release }}/.env;
     ln -nfs {{ $release }} {{ $app }};
 @endtask
 
