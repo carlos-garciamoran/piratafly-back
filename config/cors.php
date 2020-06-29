@@ -15,7 +15,7 @@ return [
     |
     */
 
-    'paths' => ['api/*'],
+    'paths' => ['*'],
 
     'allowed_methods' => [
         'GET',
@@ -34,22 +34,22 @@ return [
     'allowed_origins_patterns' => [],
 
     'allowed_headers' => [
-        'Authorization',
-        'Content-Type',
-        'Origin',
-        'Accept',
+        // 'Authorization',
+        // 'Content-Type',
+        // 'Origin',
+        // 'Accept',
     ],
 
     'exposed_headers' => [
-        'Cache-Control',
-        'Content-Type',
-        'Expires',
-        'Last-Modified',
+        // 'Cache-Control',
+        // 'Content-Type',
+        // 'Expires',
+        // 'Last-Modified',
     ],
 
     // How long the response to the preflight request can be cached for without
-    // sending another preflight request. Default = 86400 seconds (24 hours)
-    'max_age' => 60 * 60 * 24,
+    // sending another preflight request. Default = 60*60*24 seconds (24 hours)
+    'max_age' => 0,
 
     'supports_credentials' => false,
 
