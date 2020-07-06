@@ -7,7 +7,7 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
 
-class NoSeatsAssigned extends Notification
+class NoSeatsAssigned extends Notification implements ShouldQueue
 {
     use Queueable;
 
@@ -45,11 +45,11 @@ class NoSeatsAssigned extends Notification
             ->subject('Vuelo '.$this->flight->number.' | Asientos no cambiados')
             ->line(
                 'Debido a ser el único usuario en apuntarse al vuelo '.$this->flight->number.
-                '(ruta: '.$this->flight->origin.'-'.$this->flight->destination.') '.
+                ' (ruta: '.$this->flight->origin.'-'.$this->flight->destination.') '.
                 'tus asientos originales no han cambiado.'
             )
             ->action('¡Apúntame a otro vuelo!', config('app.url') . '/new-flight')
-            ->line('Sentimos que no haya ningún otro Pirata en este vuelo')
+            ->line('Sentimos que no haya ningún otro PirataFlyer en este vuelo')
             ->line(
                 'Por favor, sigue usando la app y recuerda, cuanta más gente nos'.
                 ' conozca, más posibilidad de conseguir mejores sitios ;)'

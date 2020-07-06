@@ -26,18 +26,13 @@ return [
         // 'DELETE',
     ],
 
-    'allowed_origins' => [
-        env('AUTH0_API_IDENTIFIER'),
-        env('APP_ENV') === 'local' ? 'http://localhost:5000' : '',
-    ],
+    'allowed_origins' => [ env('AUTH0_API_IDENTIFIER') ],
 
     'allowed_origins_patterns' => [],
 
     'allowed_headers' => [
-        // 'Authorization',
-        // 'Content-Type',
-        // 'Origin',
-        // 'Accept',
+        'Authorization',
+        'Content-Type',
     ],
 
     'exposed_headers' => [

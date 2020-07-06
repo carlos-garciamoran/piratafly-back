@@ -7,7 +7,7 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
 
-class NewSeatsAssigned extends Notification
+class NewSeatsAssigned extends Notification implements ShouldQueue
 {
     use Queueable;
 
@@ -47,7 +47,7 @@ class NewSeatsAssigned extends Notification
             ->subject('Vuelo '.$this->flight->number.' | Asientos asignados')
             ->line(
                 'Aquí tienes tus asientos para el vuelo número '.$this->flight->number.
-                '(ruta: '.$this->flight->origin.'-'.$this->flight->destination.')'
+                ' (ruta: '.$this->flight->origin.'-'.$this->flight->destination.')'
             )
             ->action(implode(', ', $this->new_seats), config('app.url') . '/my-flights')
             ->line('Buen viaje y, ¡gracias por usar PirataFly!');

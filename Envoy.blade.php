@@ -16,6 +16,7 @@
 @endstory
 
 @task('clone_repo')
+    [ -d {{ $releases }} ] || mkdir {{ $releases }};
     GIT_SSH_COMMAND='ssh -i ~/.ssh/id_rsa.piratafly-back -o IdentitiesOnly=yes' git clone git@github.com:carlosgmoran/piratafly-back.git {{ $release }}
     rm -r {{ $release }}/.git* {{ $release }}/storage {{ $release }}/Envoy.blade.php;
 @endtask
